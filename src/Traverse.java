@@ -28,6 +28,50 @@ public class Traverse {
     v45.neighbors = new ArrayList<>(List.of(v23));
     v23.neighbors = new ArrayList<>(List.of());
     v67.neighbors = new ArrayList<>(List.of(v91));
+
+    sum(v3);
+  }
+
+  public static int sum(Vertex<Integer> current)
+  {
+    Set<Vertex<Integer>> visited = new HashSet<>();
+    int result = sum(current, visited);
+    System.out.println(result);
+    return 0;
+  }
+
+  public static int sum(Vertex<Integer> current, Set<Vertex<Integer>> visited)
+  {
+    if(current == null || visited.contains(current)) return 0;    //adding zero at the end of the tree 
+    visited.add(current);   //checking for loops
+    int total = 0;
+    total += current.data;
+
+    for(Vertex<Integer> neighbor : current.neighbors)
+    {
+      int neighborSum = sum(neighbor,visited);
+      total+= neighborSum;
+    }
+    return total;
+  }
+
+  public static <T> void traverse(Vertex<T> current){
+    Set<Vertex<T>> myVisited = new HashSet<>();
+    traverse(current, myVisited);
+  } 
+
+  
+
+  public static <T> void traverse(Vertex<T> current , Set<Vertex<T>> visited)
+  {
+    if(current == null || visited.contains(current)) return;  //ends method when it's null
+
+    System.out.println(current.data);   //printing out the data 
+    visited.add(current);   //adding the data into a set 
+    for(Vertex<T> neighbor : current.neighbors)   //???
+    {
+      traverse(neighbor,visited);
+    }
   }
 
 }
